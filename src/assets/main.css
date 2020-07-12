@@ -1,0 +1,30 @@
+body {
+  background: #171738;
+  color: #7180B9;
+}
+
+h1 {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.weather-card {
+  width: calc(30% - 30px);
+  display: inline-block;
+  text-align: center;
+  background: #fff;
+  margin-top: 40px;
+  padding: 20px;
+  margin-right: 40px;
+}
+
+.weather-desc {
+  font-size: 20px;
+  margin: 20px 0;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.temperature {
+  font-size: 16px;
+}
