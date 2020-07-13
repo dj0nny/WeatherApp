@@ -7,6 +7,7 @@
         </div>
       </div>
       <Search @triggeredSearch="handleSearch" />
+      <div class="error" v-if="error">City not found</div>
       <div class="results-container">
         <div class="row">
           <div class="col-md-12">
@@ -29,7 +30,7 @@ export default {
   data: () => ({
     appName: 'Weather App',
     cities: [],
-    error: '',
+    error: false,
   }),
   components: {
     Search,
@@ -37,9 +38,15 @@ export default {
   },
   methods: {
     async handleSearch(e) {
-      const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${e}&appid=024a207944e907758a87a6ab399364a7&units=metric`);
-      this.cities.push(res.data);
-      localStorage.setItem('cities', JSON.stringify(this.cities));
+      await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${e}&appid=024a207944e907758a87a6ab399364a7&units=metric`)
+        .then((res) => {
+          if (this.error) this.error = false;
+          this.cities.push(res.data);
+          localStorage.setItem('cities', JSON.stringify(this.cities));
+        })
+        .catch(() => {
+          this.error = true;
+        });
     },
   },
   mounted() {

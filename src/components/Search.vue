@@ -12,6 +12,9 @@
               <button type="submit" class="btn btn-primary">Check Weather</button>
             </div>
           </div>
+          <div class="error" v-if="isEmpty">
+            This field cannot be empty
+          </div>
         </form>
       </div>
     </div>
@@ -23,11 +26,17 @@ export default {
   name: 'Search',
   data: () => ({
     cityName: '',
+    isEmpty: false,
   }),
   methods: {
     submitSearch() {
-      this.$emit('triggeredSearch', this.cityName);
-      this.cityName = '';
+      if (this.cityName !== '') {
+        this.isEmpty = false;
+        this.$emit('triggeredSearch', this.cityName);
+        this.cityName = '';
+      } else {
+        this.isEmpty = true;
+      }
     },
   },
 };
